@@ -1,0 +1,2596 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Requirement_Specification_Document.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="requirement-specification-document">REQUIREMENT SPECIFICATION DOCUMENT</h1>
+<h2 id="personal-finance-management--investment-tracker-system">Personal Finance Management &amp; Investment Tracker System</h2>
+<hr>
+<p><strong>Project Title:</strong> Personal Finance Management &amp; Investment Tracker System</p>
+<p><strong>Prepared By:</strong> B.Sc. (Computer Science) Internship 2025</p>
+<p><strong>Submission Date:</strong> January 8, 2026</p>
+<p><strong>Version:</strong> 1.0</p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#1-introduction">Introduction</a></li>
+<li><a href="#2-project-objectives">Project Objectives</a></li>
+<li><a href="#3-scope-of-the-project">Scope of the Project</a></li>
+<li><a href="#4-system-overview">System Overview</a></li>
+<li><a href="#5-functional-requirements">Functional Requirements</a></li>
+<li><a href="#6-non-functional-requirements">Non-Functional Requirements</a></li>
+<li><a href="#7-system-requirements">System Requirements</a></li>
+<li><a href="#8-technology-stack">Technology Stack</a></li>
+<li><a href="#9-system-architecture">System Architecture</a></li>
+<li><a href="#10-database-design">Database Design</a></li>
+<li><a href="#11-user-interface-design">User Interface Design</a></li>
+<li><a href="#12-use-case-diagrams">Use Case Diagrams</a></li>
+<li><a href="#13-module-descriptions">Module Descriptions</a></li>
+<li><a href="#14-security-considerations">Security Considerations</a></li>
+<li><a href="#15-testing-strategy">Testing Strategy</a></li>
+<li><a href="#16-future-enhancements">Future Enhancements</a></li>
+<li><a href="#17-conclusion">Conclusion</a></li>
+<li><a href="#18-references">References</a></li>
+</ol>
+<hr>
+<h2 id="1-introduction">1. Introduction</h2>
+<h3 id="11-purpose">1.1 Purpose</h3>
+<p>This Requirement Specification Document (RSD) provides a comprehensive description of the Personal Finance Management &amp; Investment Tracker System. It outlines the functional and non-functional requirements, system architecture, database design, and implementation details necessary for the development, testing, and deployment of this web application.</p>
+<h3 id="12-project-overview">1.2 Project Overview</h3>
+<p>The Personal Finance Management &amp; Investment Tracker System is a web-based application designed to help individuals manage their personal finances effectively. In today's fast-paced world, financial management has become increasingly important, yet many people struggle to track their income, expenses, savings, and investments in an organized manner.</p>
+<p>This application addresses these challenges by providing a unified platform that enables users to:</p>
+<ul>
+<li>Track income and expenses with detailed categorization</li>
+<li>Set and monitor monthly budgets</li>
+<li>Create and track savings goals</li>
+<li>Monitor investment portfolios</li>
+<li>Receive bill payment reminders</li>
+<li>Generate financial reports and analytics</li>
+<li>Use financial calculators for planning</li>
+</ul>
+<h3 id="13-document-conventions">1.3 Document Conventions</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSD</td>
+<td>Requirement Specification Document</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>User Interface</td>
+</tr>
+<tr>
+<td>UX</td>
+<td>User Experience</td>
+</tr>
+<tr>
+<td>CRUD</td>
+<td>Create, Read, Update, Delete</td>
+</tr>
+<tr>
+<td>API</td>
+<td>Application Programming Interface</td>
+</tr>
+<tr>
+<td>SPA</td>
+<td>Single Page Application</td>
+</tr>
+<tr>
+<td>EMI</td>
+<td>Equated Monthly Installment</td>
+</tr>
+<tr>
+<td>SIP</td>
+<td>Systematic Investment Plan</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-intended-audience">1.4 Intended Audience</h3>
+<p>This document is intended for:</p>
+<ul>
+<li>Project Supervisors and Evaluators</li>
+<li>Development Team Members</li>
+<li>Quality Assurance Personnel</li>
+<li>Future Maintainers of the System</li>
+</ul>
+<hr>
+<h2 id="2-project-objectives">2. Project Objectives</h2>
+<h3 id="21-primary-objectives">2.1 Primary Objectives</h3>
+<ol>
+<li>
+<p><strong>Financial Tracking:</strong> Develop a comprehensive system to track all income sources and expenses with proper categorization and tagging.</p>
+</li>
+<li>
+<p><strong>Budget Management:</strong> Enable users to set monthly budgets for different expense categories and monitor their spending against these limits.</p>
+</li>
+<li>
+<p><strong>Savings Goals:</strong> Allow users to create financial goals with target amounts and deadlines, tracking progress over time.</p>
+</li>
+<li>
+<p><strong>Investment Monitoring:</strong> Provide portfolio tracking capabilities with profit/loss calculations and visual representations.</p>
+</li>
+<li>
+<p><strong>Bill Management:</strong> Implement a reminder system for recurring bills to prevent missed payments.</p>
+</li>
+<li>
+<p><strong>Financial Analytics:</strong> Generate visual reports and analytics to help users understand their financial patterns.</p>
+</li>
+<li>
+<p><strong>Financial Calculators:</strong> Provide tools for EMI, SIP, and compound interest calculations.</p>
+</li>
+</ol>
+<h3 id="22-secondary-objectives">2.2 Secondary Objectives</h3>
+<ol>
+<li>Ensure a responsive design that works seamlessly across desktop, tablet, and mobile devices.</li>
+<li>Implement dark/light theme support for better user experience.</li>
+<li>Provide data export/import functionality for backup purposes.</li>
+<li>Maintain clean, well-documented, and maintainable code.</li>
+<li>Ensure data persistence using browser localStorage.</li>
+</ol>
+<hr>
+<h2 id="3-scope-of-the-project">3. Scope of the Project</h2>
+<h3 id="31-in-scope">3.1 In Scope</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User Authentication</td>
+<td>Login, Registration, Profile Management</td>
+</tr>
+<tr>
+<td>Dashboard</td>
+<td>Financial overview with charts and summaries</td>
+</tr>
+<tr>
+<td>Income Management</td>
+<td>Add, edit, delete income entries</td>
+</tr>
+<tr>
+<td>Expense Management</td>
+<td>Track and categorize expenses</td>
+</tr>
+<tr>
+<td>Budget Tracking</td>
+<td>Set limits and monitor spending by category</td>
+</tr>
+<tr>
+<td>Savings Goals</td>
+<td>Create and track progress toward goals</td>
+</tr>
+<tr>
+<td>Investment Tracker</td>
+<td>Monitor portfolio with P/L calculations</td>
+</tr>
+<tr>
+<td>Bill Reminders</td>
+<td>Track upcoming and overdue bills</td>
+</tr>
+<tr>
+<td>Transaction History</td>
+<td>View all transactions with filters</td>
+</tr>
+<tr>
+<td>Reports &amp; Analytics</td>
+<td>Charts and financial health score</td>
+</tr>
+<tr>
+<td>Calculators</td>
+<td>EMI, SIP, Compound Interest</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>Currency, date format, theme preferences</td>
+</tr>
+<tr>
+<td>Data Management</td>
+<td>Export/Import JSON backup</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-out-of-scope">3.2 Out of Scope</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backend Server</td>
+<td>Project uses localStorage for simplicity</td>
+</tr>
+<tr>
+<td>Real-time Stock Prices</td>
+<td>Would require external API integration</td>
+</tr>
+<tr>
+<td>Multi-user Collaboration</td>
+<td>Designed for individual use</td>
+</tr>
+<tr>
+<td>Mobile Native Apps</td>
+<td>Web-only application</td>
+</tr>
+<tr>
+<td>Payment Gateway</td>
+<td>Not a transactional system</td>
+</tr>
+<tr>
+<td>Bank Integration</td>
+<td>Security and complexity concerns</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-system-overview">4. System Overview</h2>
+<h3 id="41-system-description">4.1 System Description</h3>
+<p>The Personal Finance Management &amp; Investment Tracker System is a Single Page Application (SPA) built using modern web technologies. It operates entirely in the browser, storing all user data locally using the browser's localStorage API.</p>
+<h3 id="42-key-features-summary">4.2 Key Features Summary</h3>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────┐
+│                    FINANCE TRACKER SYSTEM                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │   Income    │  │  Expenses   │  │   Budgets   │          │
+│  │ Management  │  │  Tracking   │  │   Control   │          │
+│  └─────────────┘  └─────────────┘  └─────────────┘          │
+│                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │   Savings   │  │ Investments │  │    Bills    │          │
+│  │    Goals    │  │   Tracker   │  │  Reminders  │          │
+│  └─────────────┘  └─────────────┘  └─────────────┘          │
+│                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │   Reports   │  │ Calculators │  │  Settings   │          │
+│  │  Analytics  │  │  (EMI/SIP)  │  │   &amp; Help    │          │
+│  └─────────────┘  └─────────────┘  └─────────────┘          │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+</div></code></pre>
+<h3 id="43-user-roles">4.3 User Roles</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Description</th>
+<th>Permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Guest User</td>
+<td>Unauthenticated visitor</td>
+<td>Access login/register only</td>
+</tr>
+<tr>
+<td>Registered User</td>
+<td>Authenticated user</td>
+<td>Full access to all features</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-functional-requirements">5. Functional Requirements</h2>
+<h3 id="51-user-authentication-module">5.1 User Authentication Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-1.1</td>
+<td>System shall allow new users to register with name, email, and password</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-1.2</td>
+<td>System shall validate email format during registration</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-1.3</td>
+<td>System shall enforce minimum password length of 6 characters</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-1.4</td>
+<td>System shall allow registered users to login with email and password</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-1.5</td>
+<td>System shall redirect authenticated users to dashboard</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-1.6</td>
+<td>System shall allow users to logout and clear session</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-1.7</td>
+<td>System shall persist login state across browser sessions</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-1.8</td>
+<td>System shall allow users to update their profile information</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-1.9</td>
+<td>System shall allow users to change their password</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-dashboard-module">5.2 Dashboard Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-2.1</td>
+<td>System shall display total balance (income - expenses)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-2.2</td>
+<td>System shall display current month's income total</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-2.3</td>
+<td>System shall display current month's expense total</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-2.4</td>
+<td>System shall display total savings across all goals</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-2.5</td>
+<td>System shall show expense distribution as a pie chart</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-2.6</td>
+<td>System shall display recent transactions list</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-2.7</td>
+<td>System shall show budget overview with progress bars</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-2.8</td>
+<td>System shall provide quick action buttons for common tasks</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-income-management-module">5.3 Income Management Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-3.1</td>
+<td>System shall allow users to add new income entries</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-3.2</td>
+<td>System shall capture income source name, amount, category, and date</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-3.3</td>
+<td>System shall allow users to edit existing income entries</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-3.4</td>
+<td>System shall allow users to delete income entries</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-3.5</td>
+<td>System shall display list of all income entries</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-3.6</td>
+<td>System shall allow filtering income by category</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-3.7</td>
+<td>System shall allow searching income entries</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-3.8</td>
+<td>System shall mark income as recurring if applicable</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-expense-management-module">5.4 Expense Management Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-4.1</td>
+<td>System shall allow users to add new expense entries</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-4.2</td>
+<td>System shall capture expense name, amount, category, date, and payment method</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-4.3</td>
+<td>System shall allow users to edit existing expense entries</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-4.4</td>
+<td>System shall allow users to delete expense entries</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-4.5</td>
+<td>System shall display list of all expense entries</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-4.6</td>
+<td>System shall allow filtering by category and payment method</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-4.7</td>
+<td>System shall allow sorting by date or amount</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="55-budget-management-module">5.5 Budget Management Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-5.1</td>
+<td>System shall allow users to set budget limits per category</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-5.2</td>
+<td>System shall calculate actual spending per category</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-5.3</td>
+<td>System shall display progress bars showing budget utilization</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-5.4</td>
+<td>System shall show visual alerts when budget exceeds 70%, 90%, 100%</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-5.5</td>
+<td>System shall allow editing budget limits</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-5.6</td>
+<td>System shall allow deleting budgets</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-5.7</td>
+<td>System shall prevent duplicate budgets for same category</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="56-savings-goals-module">5.6 Savings Goals Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-6.1</td>
+<td>System shall allow creating savings goals with name, target, and deadline</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-6.2</td>
+<td>System shall track current amount saved toward each goal</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-6.3</td>
+<td>System shall display progress percentage</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-6.4</td>
+<td>System shall allow adding money to goals</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-6.5</td>
+<td>System shall support priority levels (High, Medium, Low)</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-6.6</td>
+<td>System shall show days remaining until deadline</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-6.7</td>
+<td>System shall indicate completed goals with celebration</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<h3 id="57-investment-tracker-module">5.7 Investment Tracker Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-7.1</td>
+<td>System shall allow adding investments with type, quantity, and prices</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-7.2</td>
+<td>System shall calculate profit/loss for each investment</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-7.3</td>
+<td>System shall display overall portfolio value</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-7.4</td>
+<td>System shall show percentage returns</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-7.5</td>
+<td>System shall display portfolio distribution chart</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-7.6</td>
+<td>System shall support multiple investment types (Stocks, Mutual Funds, Crypto, etc.)</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="58-bill-reminders-module">5.8 Bill Reminders Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-8.1</td>
+<td>System shall allow adding bill reminders with due date and amount</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-8.2</td>
+<td>System shall display upcoming bills</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-8.3</td>
+<td>System shall highlight overdue bills</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-8.4</td>
+<td>System shall allow marking bills as paid</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-8.5</td>
+<td>System shall show notification badge for pending bills</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-8.6</td>
+<td>System shall support recurring bills (Monthly, Quarterly, Yearly)</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="59-reports--analytics-module">5.9 Reports &amp; Analytics Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-9.1</td>
+<td>System shall generate income vs expense comparison chart</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-9.2</td>
+<td>System shall show expense distribution by category</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-9.3</td>
+<td>System shall display spending trend over time</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-9.4</td>
+<td>System shall calculate financial health score</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-9.5</td>
+<td>System shall show top spending categories</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-9.6</td>
+<td>System shall display income sources breakdown</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<h3 id="510-financial-calculators-module">5.10 Financial Calculators Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-10.1</td>
+<td>System shall provide EMI calculator (loan amount, rate, tenure)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-10.2</td>
+<td>System shall provide SIP calculator (monthly investment, rate, years)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-10.3</td>
+<td>System shall provide Compound Interest calculator</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-10.4</td>
+<td>System shall display detailed results with breakdown</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="511-settings--data-management-module">5.11 Settings &amp; Data Management Module</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-11.1</td>
+<td>System shall allow changing currency symbol</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-11.2</td>
+<td>System shall allow changing date format</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-11.3</td>
+<td>System shall allow toggling dark/light theme</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-11.4</td>
+<td>System shall allow exporting all data as JSON</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-11.5</td>
+<td>System shall allow importing data from JSON backup</td>
+<td>High</td>
+</tr>
+<tr>
+<td>FR-11.6</td>
+<td>System shall allow clearing all data</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>FR-11.7</td>
+<td>System shall allow loading sample data</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="6-non-functional-requirements">6. Non-Functional Requirements</h2>
+<h3 id="61-performance-requirements">6.1 Performance Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Metric</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-1.1</td>
+<td>Application shall load within 3 seconds on standard connection</td>
+<td>&lt; 3 seconds</td>
+</tr>
+<tr>
+<td>NFR-1.2</td>
+<td>UI interactions shall respond within 100ms</td>
+<td>&lt; 100ms</td>
+</tr>
+<tr>
+<td>NFR-1.3</td>
+<td>Charts shall render within 500ms</td>
+<td>&lt; 500ms</td>
+</tr>
+<tr>
+<td>NFR-1.4</td>
+<td>Application shall handle 1000+ transactions without degradation</td>
+<td>1000+ records</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-usability-requirements">6.2 Usability Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-2.1</td>
+<td>Interface shall be intuitive and require no training</td>
+</tr>
+<tr>
+<td>NFR-2.2</td>
+<td>System shall provide visual feedback for all actions</td>
+</tr>
+<tr>
+<td>NFR-2.3</td>
+<td>Error messages shall be clear and actionable</td>
+</tr>
+<tr>
+<td>NFR-2.4</td>
+<td>Navigation shall be consistent across all pages</td>
+</tr>
+<tr>
+<td>NFR-2.5</td>
+<td>Forms shall validate input and show inline errors</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-reliability-requirements">6.3 Reliability Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-3.1</td>
+<td>Data shall persist across browser sessions</td>
+</tr>
+<tr>
+<td>NFR-3.2</td>
+<td>Application shall handle localStorage quota exceeded gracefully</td>
+</tr>
+<tr>
+<td>NFR-3.3</td>
+<td>System shall not crash on invalid input</td>
+</tr>
+</tbody>
+</table>
+<h3 id="64-compatibility-requirements">6.4 Compatibility Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-4.1</td>
+<td>Application shall support Chrome (latest 2 versions)</td>
+</tr>
+<tr>
+<td>NFR-4.2</td>
+<td>Application shall support Firefox (latest 2 versions)</td>
+</tr>
+<tr>
+<td>NFR-4.3</td>
+<td>Application shall support Edge (latest 2 versions)</td>
+</tr>
+<tr>
+<td>NFR-4.4</td>
+<td>Application shall support Safari (latest 2 versions)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="65-responsiveness-requirements">6.5 Responsiveness Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+<th>Breakpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-5.1</td>
+<td>Application shall be fully functional on mobile devices</td>
+<td>320px - 480px</td>
+</tr>
+<tr>
+<td>NFR-5.2</td>
+<td>Application shall be fully functional on tablets</td>
+<td>481px - 768px</td>
+</tr>
+<tr>
+<td>NFR-5.3</td>
+<td>Application shall be optimized for desktop</td>
+<td>769px+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="66-accessibility-requirements">6.6 Accessibility Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Req ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-6.1</td>
+<td>Application shall support keyboard navigation</td>
+</tr>
+<tr>
+<td>NFR-6.2</td>
+<td>Interactive elements shall have visible focus states</td>
+</tr>
+<tr>
+<td>NFR-6.3</td>
+<td>Color contrast shall meet WCAG 2.1 AA standards</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7-system-requirements">7. System Requirements</h2>
+<h3 id="71-hardware-requirements">7.1 Hardware Requirements</h3>
+<h4 id="development-environment">Development Environment</h4>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Minimum</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Processor</td>
+<td>Intel Core i3 / AMD Ryzen 3</td>
+<td>Intel Core i5 / AMD Ryzen 5</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>4 GB</td>
+<td>8 GB</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>500 MB free space</td>
+<td>1 GB free space</td>
+</tr>
+<tr>
+<td>Display</td>
+<td>1366 x 768</td>
+<td>1920 x 1080</td>
+</tr>
+</tbody>
+</table>
+<h4 id="client-environment">Client Environment</h4>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Minimum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Processor</td>
+<td>Any modern processor</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>2 GB</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>50 MB for localStorage</td>
+</tr>
+<tr>
+<td>Display</td>
+<td>320px width (mobile)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-software-requirements">7.2 Software Requirements</h3>
+<h4 id="development-environment">Development Environment</h4>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operating System</td>
+<td>Windows 10/11, macOS, or Linux</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>18.x or higher</td>
+</tr>
+<tr>
+<td>npm</td>
+<td>9.x or higher</td>
+</tr>
+<tr>
+<td>Code Editor</td>
+<td>VS Code (recommended)</td>
+</tr>
+<tr>
+<td>Web Browser</td>
+<td>Chrome, Firefox, or Edge (latest)</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>2.x or higher</td>
+</tr>
+</tbody>
+</table>
+<h4 id="runtime-environment">Runtime Environment</h4>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web Browser</td>
+<td>Chrome 90+, Firefox 88+, Edge 90+, Safari 14+</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>ES6+ support required</td>
+</tr>
+<tr>
+<td>localStorage</td>
+<td>5 MB minimum</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8-technology-stack">8. Technology Stack</h2>
+<h3 id="81-frontend-technologies">8.1 Frontend Technologies</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>React</td>
+<td>18.x</td>
+<td>UI component library</td>
+</tr>
+<tr>
+<td>React Router</td>
+<td>6.x</td>
+<td>Client-side routing</td>
+</tr>
+<tr>
+<td>Tailwind CSS</td>
+<td>3.x</td>
+<td>Utility-first CSS framework</td>
+</tr>
+<tr>
+<td>Recharts</td>
+<td>2.x</td>
+<td>Charting library for data visualization</td>
+</tr>
+<tr>
+<td>Lucide React</td>
+<td>Latest</td>
+<td>Icon library</td>
+</tr>
+<tr>
+<td>Vite</td>
+<td>5.x</td>
+<td>Build tool and development server</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-development-dependencies">8.2 Development Dependencies</h3>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autoprefixer</td>
+<td>CSS vendor prefixing</td>
+</tr>
+<tr>
+<td>postcss</td>
+<td>CSS processing</td>
+</tr>
+<tr>
+<td>eslint</td>
+<td>Code linting</td>
+</tr>
+</tbody>
+</table>
+<h3 id="83-architecture-pattern">8.3 Architecture Pattern</h3>
+<ul>
+<li><strong>Component-Based Architecture:</strong> Using React functional components</li>
+<li><strong>Context API:</strong> For global state management</li>
+<li><strong>Custom Hooks:</strong> For reusable logic</li>
+<li><strong>Module CSS:</strong> Using Tailwind utility classes</li>
+</ul>
+<hr>
+<h2 id="9-system-architecture">9. System Architecture</h2>
+<h3 id="91-high-level-architecture-diagram">9.1 High-Level Architecture Diagram</h3>
+<pre class="hljs"><code><div>┌────────────────────────────────────────────────────────────────────┐
+│                          PRESENTATION LAYER                         │
+├────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐               │
+│  │    Pages     │  │  Components  │  │    Layout    │               │
+│  │  (15 pages)  │  │  (Reusable)  │  │  (Sidebar,   │               │
+│  │              │  │              │  │   Navbar)    │               │
+│  └──────────────┘  └──────────────┘  └──────────────┘               │
+│                                                                      │
+├────────────────────────────────────────────────────────────────────┤
+│                          STATE MANAGEMENT LAYER                      │
+├────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐               │
+│  │    Auth      │  │   Finance    │  │    Theme     │               │
+│  │   Context    │  │   Context    │  │   Context    │               │
+│  └──────────────┘  └──────────────┘  └──────────────┘               │
+│                                                                      │
+│                    ┌──────────────┐                                  │
+│                    │ Notification │                                  │
+│                    │   Context    │                                  │
+│                    └──────────────┘                                  │
+│                                                                      │
+├────────────────────────────────────────────────────────────────────┤
+│                          UTILITY LAYER                               │
+├────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐               │
+│  │   Helpers    │  │  Validators  │  │ Calculators  │               │
+│  │  (Formatting │  │  (Form       │  │  (EMI, SIP,  │               │
+│  │   &amp; Utils)   │  │   Validation)│  │   CI)        │               │
+│  └──────────────┘  └──────────────┘  └──────────────┘               │
+│                                                                      │
+├────────────────────────────────────────────────────────────────────┤
+│                          DATA PERSISTENCE LAYER                      │
+├────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  ┌──────────────────────────────────────────────────────────────┐   │
+│  │                    Browser localStorage                        │   │
+│  │  ┌─────────┐ ┌───────────┐ ┌────────┐ ┌─────────┐ ┌────────┐ │   │
+│  │  │  Users  │ │Transactions│ │Budgets │ │  Goals  │ │  Bills │ │   │
+│  │  └─────────┘ └───────────┘ └────────┘ └─────────┘ └────────┘ │   │
+│  └──────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+└────────────────────────────────────────────────────────────────────┘
+</div></code></pre>
+<h3 id="92-component-hierarchy">9.2 Component Hierarchy</h3>
+<pre class="hljs"><code><div>App
+├── ThemeProvider
+│   └── NotificationProvider
+│       └── AuthProvider
+│           └── FinanceProvider
+│               └── BrowserRouter
+│                   └── Routes
+│                       ├── /login → Login
+│                       ├── /register → Register
+│                       └── /* → ProtectedRoute
+│                           └── Layout
+│                               ├── Sidebar
+│                               ├── Navbar
+│                               ├── Toast
+│                               └── [Page Content]
+│                                   ├── Dashboard
+│                                   ├── Income
+│                                   ├── Expenses
+│                                   ├── Budgets
+│                                   ├── Goals
+│                                   ├── Transactions
+│                                   ├── Reports
+│                                   ├── Investments
+│                                   ├── Bills
+│                                   ├── Calculators
+│                                   ├── Categories
+│                                   ├── Settings
+│                                   ├── Profile
+│                                   └── Help
+</div></code></pre>
+<h3 id="93-data-flow-diagram">9.3 Data Flow Diagram</h3>
+<pre class="hljs"><code><div>┌──────────┐     ┌──────────────┐     ┌──────────────┐     ┌────────────┐
+│   User   │────▶│  UI Component │────▶│    Context   │────▶│ localStorage│
+│  Action  │     │   (React)    │     │   (State)    │     │  (Storage)  │
+└──────────┘     └──────────────┘     └──────────────┘     └────────────┘
+                        ▲                     │
+                        │                     │
+                        └─────────────────────┘
+                           State Update
+</div></code></pre>
+<hr>
+<h2 id="10-database-design">10. Database Design</h2>
+<h3 id="101-storage-strategy">10.1 Storage Strategy</h3>
+<p>Since this is a client-side application, data is stored in the browser's localStorage as JSON strings. Each data type has its own storage key.</p>
+<h3 id="102-localstorage-keys">10.2 localStorage Keys</h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>finance_users</code></td>
+<td>User account information</td>
+<td>Array of User objects</td>
+</tr>
+<tr>
+<td><code>finance_currentUser</code></td>
+<td>Currently logged in user</td>
+<td>User object</td>
+</tr>
+<tr>
+<td><code>finance_transactions</code></td>
+<td>All income and expense records</td>
+<td>Array of Transaction objects</td>
+</tr>
+<tr>
+<td><code>finance_budgets</code></td>
+<td>Budget configurations</td>
+<td>Array of Budget objects</td>
+</tr>
+<tr>
+<td><code>finance_goals</code></td>
+<td>Savings goals</td>
+<td>Array of Goal objects</td>
+</tr>
+<tr>
+<td><code>finance_investments</code></td>
+<td>Investment portfolio</td>
+<td>Array of Investment objects</td>
+</tr>
+<tr>
+<td><code>finance_bills</code></td>
+<td>Bill reminders</td>
+<td>Array of Bill objects</td>
+</tr>
+<tr>
+<td><code>finance_categories</code></td>
+<td>Custom categories</td>
+<td>Object with income/expense arrays</td>
+</tr>
+<tr>
+<td><code>finance_settings</code></td>
+<td>App settings</td>
+<td>Settings object</td>
+</tr>
+<tr>
+<td><code>finance_theme</code></td>
+<td>Theme preference</td>
+<td>String ('light' or 'dark')</td>
+</tr>
+<tr>
+<td><code>finance_initialized</code></td>
+<td>First-run flag</td>
+<td>Boolean</td>
+</tr>
+</tbody>
+</table>
+<h3 id="103-data-schemas">10.3 Data Schemas</h3>
+<h4 id="user-schema">User Schema</h4>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">"user_123456789"</span>,           <span class="hljs-comment">// Unique identifier</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">"John Doe"</span>,               <span class="hljs-comment">// Full name</span>
+  <span class="hljs-attr">email</span>: <span class="hljs-string">"john@example.com"</span>,      <span class="hljs-comment">// Email (unique)</span>
+  <span class="hljs-attr">password</span>: <span class="hljs-string">"hashedPassword"</span>,     <span class="hljs-comment">// Password (hashed)</span>
+  <span class="hljs-attr">phone</span>: <span class="hljs-string">"9876543210"</span>,            <span class="hljs-comment">// Phone number (optional)</span>
+  <span class="hljs-attr">occupation</span>: <span class="hljs-string">"Software Engineer"</span>, <span class="hljs-comment">// Occupation (optional)</span>
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-string">"2026-01-01T00:00:00"</span> <span class="hljs-comment">// Registration date</span>
+}
+</div></code></pre>
+<h4 id="transaction-schema">Transaction Schema</h4>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">"txn_123456789"</span>,            <span class="hljs-comment">// Unique identifier</span>
+  <span class="hljs-attr">userId</span>: <span class="hljs-string">"user_123456789"</span>,       <span class="hljs-comment">// Owner's user ID</span>
+  <span class="hljs-attr">type</span>: <span class="hljs-string">"income"</span> | <span class="hljs-string">"expense"</span>,     <span class="hljs-comment">// Transaction type</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">"Monthly Salary"</span>,         <span class="hljs-comment">// Description</span>
+  <span class="hljs-attr">amount</span>: <span class="hljs-number">50000</span>,                  <span class="hljs-comment">// Amount in currency units</span>
+  <span class="hljs-attr">category</span>: <span class="hljs-string">"Salary"</span>,             <span class="hljs-comment">// Category name</span>
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2026-01-08"</span>,             <span class="hljs-comment">// Transaction date</span>
+  <span class="hljs-attr">paymentMethod</span>: <span class="hljs-string">"Bank Transfer"</span>, <span class="hljs-comment">// Payment method (expenses)</span>
+  <span class="hljs-attr">description</span>: <span class="hljs-string">"January salary"</span>,  <span class="hljs-comment">// Optional notes</span>
+  <span class="hljs-attr">recurring</span>: <span class="hljs-literal">false</span>                <span class="hljs-comment">// Is recurring</span>
+}
+</div></code></pre>
+<h4 id="budget-schema">Budget Schema</h4>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">"bgt_123456789"</span>,            <span class="hljs-comment">// Unique identifier</span>
+  <span class="hljs-attr">userId</span>: <span class="hljs-string">"user_123456789"</span>,       <span class="hljs-comment">// Owner's user ID</span>
+  <span class="hljs-attr">category</span>: <span class="hljs-string">"Food"</span>,               <span class="hljs-comment">// Category name</span>
+  <span class="hljs-attr">limit</span>: <span class="hljs-number">15000</span>,                   <span class="hljs-comment">// Monthly limit</span>
+  <span class="hljs-attr">spent</span>: <span class="hljs-number">8500</span>,                    <span class="hljs-comment">// Amount spent (calculated)</span>
+  <span class="hljs-attr">month</span>: <span class="hljs-string">"2026-01"</span>                <span class="hljs-comment">// Budget month</span>
+}
+</div></code></pre>
+<h4 id="goal-schema">Goal Schema</h4>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">"goal_123456789"</span>,           <span class="hljs-comment">// Unique identifier</span>
+  <span class="hljs-attr">userId</span>: <span class="hljs-string">"user_123456789"</span>,       <span class="hljs-comment">// Owner's user ID</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">"Emergency Fund"</span>,         <span class="hljs-comment">// Goal name</span>
+  <span class="hljs-attr">targetAmount</span>: <span class="hljs-number">100000</span>,           <span class="hljs-comment">// Target amount</span>
+  <span class="hljs-attr">currentAmount</span>: <span class="hljs-number">45000</span>,           <span class="hljs-comment">// Current savings</span>
+  <span class="hljs-attr">deadline</span>: <span class="hljs-string">"2026-12-31"</span>,         <span class="hljs-comment">// Target date</span>
+  <span class="hljs-attr">priority</span>: <span class="hljs-string">"High"</span>,               <span class="hljs-comment">// Priority level</span>
+  <span class="hljs-attr">description</span>: <span class="hljs-string">"6 months expenses"</span> <span class="hljs-comment">// Optional description</span>
+}
+</div></code></pre>
+<h4 id="investment-schema">Investment Schema</h4>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">"inv_123456789"</span>,            <span class="hljs-comment">// Unique identifier</span>
+  <span class="hljs-attr">userId</span>: <span class="hljs-string">"user_123456789"</span>,       <span class="hljs-comment">// Owner's user ID</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">"Reliance Industries"</span>,    <span class="hljs-comment">// Investment name</span>
+  <span class="hljs-attr">type</span>: <span class="hljs-string">"Stocks"</span>,                 <span class="hljs-comment">// Investment type</span>
+  <span class="hljs-attr">purchasePrice</span>: <span class="hljs-number">2500</span>,            <span class="hljs-comment">// Buy price per unit</span>
+  <span class="hljs-attr">currentValue</span>: <span class="hljs-number">2750</span>,             <span class="hljs-comment">// Current price per unit</span>
+  <span class="hljs-attr">quantity</span>: <span class="hljs-number">10</span>,                   <span class="hljs-comment">// Number of units</span>
+  <span class="hljs-attr">purchaseDate</span>: <span class="hljs-string">"2025-06-15"</span>      <span class="hljs-comment">// Purchase date</span>
+}
+</div></code></pre>
+<h4 id="bill-schema">Bill Schema</h4>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">"bill_123456789"</span>,           <span class="hljs-comment">// Unique identifier</span>
+  <span class="hljs-attr">userId</span>: <span class="hljs-string">"user_123456789"</span>,       <span class="hljs-comment">// Owner's user ID</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">"Electricity Bill"</span>,       <span class="hljs-comment">// Bill name</span>
+  <span class="hljs-attr">amount</span>: <span class="hljs-number">2500</span>,                   <span class="hljs-comment">// Bill amount</span>
+  <span class="hljs-attr">dueDate</span>: <span class="hljs-string">"2026-01-15"</span>,          <span class="hljs-comment">// Due date</span>
+  <span class="hljs-attr">category</span>: <span class="hljs-string">"Utilities"</span>,          <span class="hljs-comment">// Category</span>
+  <span class="hljs-attr">recurring</span>: <span class="hljs-string">"Monthly"</span>,           <span class="hljs-comment">// Recurrence type</span>
+  <span class="hljs-attr">isPaid</span>: <span class="hljs-literal">false</span>,                  <span class="hljs-comment">// Payment status</span>
+  <span class="hljs-attr">paidDate</span>: <span class="hljs-literal">null</span>                  <span class="hljs-comment">// Date when paid</span>
+}
+</div></code></pre>
+<hr>
+<h2 id="11-user-interface-design">11. User Interface Design</h2>
+<h3 id="111-design-principles">11.1 Design Principles</h3>
+<ol>
+<li><strong>Clean &amp; Modern:</strong> Minimalist design with ample whitespace</li>
+<li><strong>Consistent:</strong> Uniform styling, colors, and interactions throughout</li>
+<li><strong>Responsive:</strong> Adapts seamlessly to all screen sizes</li>
+<li><strong>Accessible:</strong> High contrast, keyboard navigable</li>
+<li><strong>Intuitive:</strong> Self-explanatory UI elements</li>
+</ol>
+<h3 id="112-color-palette">11.2 Color Palette</h3>
+<table>
+<thead>
+<tr>
+<th>Color</th>
+<th>Light Mode</th>
+<th>Dark Mode</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary</td>
+<td>#3b82f6</td>
+<td>#60a5fa</td>
+<td>Main actions, links</td>
+</tr>
+<tr>
+<td>Success</td>
+<td>#10b981</td>
+<td>#34d399</td>
+<td>Income, positive values</td>
+</tr>
+<tr>
+<td>Danger</td>
+<td>#ef4444</td>
+<td>#f87171</td>
+<td>Expenses, errors, alerts</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>#f59e0b</td>
+<td>#fbbf24</td>
+<td>Warnings, pending items</td>
+</tr>
+<tr>
+<td>Background</td>
+<td>#f9fafb</td>
+<td>#121212</td>
+<td>Page background</td>
+</tr>
+<tr>
+<td>Surface</td>
+<td>#ffffff</td>
+<td>#1e1e1e</td>
+<td>Cards, modals</td>
+</tr>
+<tr>
+<td>Text</td>
+<td>#111827</td>
+<td>#f9fafb</td>
+<td>Primary text</td>
+</tr>
+<tr>
+<td>Muted</td>
+<td>#6b7280</td>
+<td>#9ca3af</td>
+<td>Secondary text</td>
+</tr>
+</tbody>
+</table>
+<h3 id="113-typography">11.3 Typography</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Font</th>
+<th>Size</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headings (H1)</td>
+<td>Inter</td>
+<td>24px</td>
+<td>Bold (700)</td>
+</tr>
+<tr>
+<td>Headings (H2)</td>
+<td>Inter</td>
+<td>20px</td>
+<td>Semibold (600)</td>
+</tr>
+<tr>
+<td>Headings (H3)</td>
+<td>Inter</td>
+<td>18px</td>
+<td>Semibold (600)</td>
+</tr>
+<tr>
+<td>Body Text</td>
+<td>Inter</td>
+<td>14px</td>
+<td>Regular (400)</td>
+</tr>
+<tr>
+<td>Button Text</td>
+<td>Inter</td>
+<td>14px</td>
+<td>Medium (500)</td>
+</tr>
+<tr>
+<td>Small Text</td>
+<td>Inter</td>
+<td>12px</td>
+<td>Regular (400)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="114-page-layouts">11.4 Page Layouts</h3>
+<h4 id="loginregister-pages">Login/Register Pages</h4>
+<ul>
+<li>Centered card layout</li>
+<li>Gradient background</li>
+<li>Logo and branding prominent</li>
+<li>Form with validation</li>
+</ul>
+<h4 id="dashboard">Dashboard</h4>
+<ul>
+<li>Summary cards at top (4 columns)</li>
+<li>Quick actions section</li>
+<li>Two-column chart layout</li>
+<li>Recent transactions list</li>
+</ul>
+<h4 id="list-pages-income-expenses-etc">List Pages (Income, Expenses, etc.)</h4>
+<ul>
+<li>Header with title and Add button</li>
+<li>Summary card</li>
+<li>Filter/search section</li>
+<li>Data table with actions</li>
+</ul>
+<h4 id="form-modals">Form Modals</h4>
+<ul>
+<li>Overlay with backdrop</li>
+<li>Centered modal</li>
+<li>Form fields with labels</li>
+<li>Cancel and Submit buttons</li>
+</ul>
+<hr>
+<h2 id="12-use-case-diagrams">12. Use Case Diagrams</h2>
+<h3 id="121-authentication-use-cases">12.1 Authentication Use Cases</h3>
+<pre class="hljs"><code><div>                    ┌─────────────────────────────────────┐
+                    │         Authentication Module        │
+                    └─────────────────────────────────────┘
+                                      │
+        ┌─────────────────────────────┼─────────────────────────────┐
+        │                             │                             │
+        ▼                             ▼                             ▼
+┌──────────────┐            ┌──────────────┐            ┌──────────────┐
+│   Register   │            │    Login     │            │    Logout    │
+│   Account    │            │              │            │              │
+└──────────────┘            └──────────────┘            └──────────────┘
+        │                             │                             │
+        │                             │                             │
+        └─────────────────────────────┼─────────────────────────────┘
+                                      │
+                                      ▼
+                              ┌──────────────┐
+                              │     User     │
+                              │   (Actor)    │
+                              └──────────────┘
+</div></code></pre>
+<h3 id="122-financial-management-use-cases">12.2 Financial Management Use Cases</h3>
+<pre class="hljs"><code><div>                                ┌──────────────┐
+                                │     User     │
+                                │   (Actor)    │
+                                └──────────────┘
+                                       │
+        ┌──────────────────────────────┼──────────────────────────────┐
+        │              │               │               │              │
+        ▼              ▼               ▼               ▼              ▼
+┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐
+│   Manage   │ │   Manage   │ │    Set     │ │   Track    │ │   Track    │
+│   Income   │ │  Expenses  │ │  Budgets   │ │   Goals    │ │Investments │
+└────────────┘ └────────────┘ └────────────┘ └────────────┘ └────────────┘
+      │              │               │               │              │
+      ▼              ▼               ▼               ▼              ▼
+   ┌──────┐      ┌──────┐       ┌──────┐       ┌──────┐      ┌──────┐
+   │ CRUD │      │ CRUD │       │ CRUD │       │ CRUD │      │ CRUD │
+   └──────┘      └──────┘       │Monitor│      │Add $ │      │ P/L  │
+                                └──────┘       └──────┘      └──────┘
+</div></code></pre>
+<h3 id="123-reporting-use-cases">12.3 Reporting Use Cases</h3>
+<pre class="hljs"><code><div>                                ┌──────────────┐
+                                │     User     │
+                                └──────────────┘
+                                       │
+                ┌──────────────────────┼──────────────────────┐
+                │                      │                      │
+                ▼                      ▼                      ▼
+        ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
+        │     View     │      │     View     │      │   Calculate  │
+        │   Reports    │      │ Transactions │      │   Finances   │
+        └──────────────┘      └──────────────┘      └──────────────┘
+                │                      │                      │
+        ┌───────┼───────┐              │              ┌───────┼───────┐
+        ▼       ▼       ▼              ▼              ▼       ▼       ▼
+      Charts  Trends  Score       Filter/Export     EMI     SIP      CI
+</div></code></pre>
+<hr>
+<h2 id="13-module-descriptions">13. Module Descriptions</h2>
+<h3 id="131-authentication-module">13.1 Authentication Module</h3>
+<p><strong>Purpose:</strong> Handle user registration, login, logout, and session management.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Login.jsx</code> - Login form with validation</li>
+<li><code>Register.jsx</code> - Registration form with validation</li>
+<li><code>AuthContext.jsx</code> - Authentication state management</li>
+<li><code>ProtectedRoute.jsx</code> - Route guard component</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>login(email, password)</code> - Authenticate user</li>
+<li><code>register(userData)</code> - Create new user account</li>
+<li><code>logout()</code> - Clear session</li>
+<li><code>updateProfile(data)</code> - Update user information</li>
+<li><code>changePassword(oldPass, newPass)</code> - Change password</li>
+</ul>
+<h3 id="132-dashboard-module">13.2 Dashboard Module</h3>
+<p><strong>Purpose:</strong> Provide financial overview and quick access to key features.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Dashboard.jsx</code> - Main dashboard page</li>
+<li><code>SummaryCard.jsx</code> - Metric display card</li>
+<li><code>RecentTransactions.jsx</code> - Transaction list widget</li>
+<li><code>QuickActions.jsx</code> - Action buttons</li>
+<li><code>BudgetOverview.jsx</code> - Budget progress widget</li>
+</ul>
+<h3 id="133-transaction-management-module">13.3 Transaction Management Module</h3>
+<p><strong>Purpose:</strong> Handle all income and expense CRUD operations.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Income.jsx</code> - Income management page</li>
+<li><code>Expenses.jsx</code> - Expense management page</li>
+<li><code>Transactions.jsx</code> - Combined transaction view</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>addTransaction(data)</code> - Add new transaction</li>
+<li><code>updateTransaction(id, data)</code> - Edit transaction</li>
+<li><code>deleteTransaction(id)</code> - Remove transaction</li>
+</ul>
+<h3 id="134-budget-module">13.4 Budget Module</h3>
+<p><strong>Purpose:</strong> Allow users to set spending limits and track compliance.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Budgets.jsx</code> - Budget management page</li>
+<li><code>ProgressBar.jsx</code> - Visual progress indicator</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>addBudget(data)</code> - Create budget</li>
+<li><code>updateBudget(id, data)</code> - Modify budget</li>
+<li><code>deleteBudget(id)</code> - Remove budget</li>
+</ul>
+<h3 id="135-goals-module">13.5 Goals Module</h3>
+<p><strong>Purpose:</strong> Enable users to create and track savings goals.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Goals.jsx</code> - Goals management page</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>addGoal(data)</code> - Create goal</li>
+<li><code>updateGoal(id, data)</code> - Modify goal</li>
+<li><code>deleteGoal(id)</code> - Remove goal</li>
+<li><code>addToGoal(id, amount)</code> - Add savings to goal</li>
+</ul>
+<h3 id="136-investment-module">13.6 Investment Module</h3>
+<p><strong>Purpose:</strong> Track investment portfolio with profit/loss calculations.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Investments.jsx</code> - Investment tracking page</li>
+<li><code>PortfolioChart.jsx</code> - Portfolio distribution chart</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>addInvestment(data)</code> - Add investment</li>
+<li><code>updateInvestment(id, data)</code> - Update investment details</li>
+<li><code>deleteInvestment(id)</code> - Remove investment</li>
+</ul>
+<h3 id="137-bills-module">13.7 Bills Module</h3>
+<p><strong>Purpose:</strong> Manage bill reminders and payment tracking.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Bills.jsx</code> - Bill management page</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>addBill(data)</code> - Add bill reminder</li>
+<li><code>updateBill(id, data)</code> - Modify bill</li>
+<li><code>deleteBill(id)</code> - Remove bill</li>
+<li><code>markBillPaid(id)</code> - Mark as paid</li>
+</ul>
+<h3 id="138-reports-module">13.8 Reports Module</h3>
+<p><strong>Purpose:</strong> Generate visual analytics and reports.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Reports.jsx</code> - Analytics page</li>
+<li><code>ExpensePieChart.jsx</code> - Expense distribution</li>
+<li><code>IncomeExpenseChart.jsx</code> - Income vs Expense comparison</li>
+<li><code>TrendLineChart.jsx</code> - Spending trends</li>
+</ul>
+<h3 id="139-calculators-module">13.9 Calculators Module</h3>
+<p><strong>Purpose:</strong> Provide financial calculation tools.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Calculators.jsx</code> - Calculator page</li>
+</ul>
+<p><strong>Calculation Functions:</strong></p>
+<ul>
+<li><code>calculateEMI(principal, rate, tenure)</code> - EMI calculation</li>
+<li><code>calculateSIP(monthly, rate, years)</code> - SIP returns</li>
+<li><code>calculateCompoundInterest(principal, rate, time, frequency)</code> - CI calculation</li>
+</ul>
+<h3 id="1310-settings-module">13.10 Settings Module</h3>
+<p><strong>Purpose:</strong> Allow users to customize app preferences and manage data.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><code>Settings.jsx</code> - Settings page</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>updateSettings(data)</code> - Save preferences</li>
+<li><code>exportAllData()</code> - Export JSON backup</li>
+<li><code>importData(data)</code> - Import from backup</li>
+<li><code>clearAllStorage()</code> - Reset all data</li>
+</ul>
+<hr>
+<h2 id="14-security-considerations">14. Security Considerations</h2>
+<h3 id="141-data-security">14.1 Data Security</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Password Storage</td>
+<td>Passwords are stored (note: in production, would use bcrypt hashing)</td>
+</tr>
+<tr>
+<td>Session Management</td>
+<td>User session stored in localStorage</td>
+</tr>
+<tr>
+<td>Data Isolation</td>
+<td>Each user can only access their own data (filtered by userId)</td>
+</tr>
+<tr>
+<td>Input Validation</td>
+<td>All forms validate input before processing</td>
+</tr>
+<tr>
+<td>XSS Prevention</td>
+<td>React's built-in protection against XSS attacks</td>
+</tr>
+</tbody>
+</table>
+<h3 id="142-security-limitations">14.2 Security Limitations</h3>
+<blockquote>
+<p><strong>Note:</strong> As this is a client-side only application meant for educational purposes, the following security aspects are simplified:</p>
+</blockquote>
+<ol>
+<li>Passwords are not encrypted (production would use bcrypt)</li>
+<li>No server-side validation (all validation is client-side)</li>
+<li>localStorage can be accessed via browser developer tools</li>
+<li>No HTTPS enforcement (handled by hosting platform)</li>
+</ol>
+<h3 id="143-recommendations-for-production">14.3 Recommendations for Production</h3>
+<ol>
+<li>Implement backend server with proper authentication</li>
+<li>Use JWT tokens for session management</li>
+<li>Hash passwords with bcrypt</li>
+<li>Implement rate limiting</li>
+<li>Use HTTPS for all communications</li>
+<li>Add CSRF protection</li>
+<li>Implement proper data encryption</li>
+</ol>
+<hr>
+<h2 id="15-testing-strategy">15. Testing Strategy</h2>
+<h3 id="151-testing-levels">15.1 Testing Levels</h3>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+<th>Tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit Testing</td>
+<td>Test individual functions</td>
+<td>Jest</td>
+</tr>
+<tr>
+<td>Component Testing</td>
+<td>Test React components</td>
+<td>React Testing Library</td>
+</tr>
+<tr>
+<td>Integration Testing</td>
+<td>Test module interactions</td>
+<td>Jest + RTL</td>
+</tr>
+<tr>
+<td>End-to-End Testing</td>
+<td>Test complete user flows</td>
+<td>Cypress</td>
+</tr>
+<tr>
+<td>Manual Testing</td>
+<td>User acceptance testing</td>
+<td>Browser</td>
+</tr>
+</tbody>
+</table>
+<h3 id="152-test-cases">15.2 Test Cases</h3>
+<h4 id="authentication-test-cases">Authentication Test Cases</h4>
+<table>
+<thead>
+<tr>
+<th>TC ID</th>
+<th>Test Case</th>
+<th>Expected Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC-001</td>
+<td>Login with valid credentials</td>
+<td>Redirect to dashboard</td>
+</tr>
+<tr>
+<td>TC-002</td>
+<td>Login with invalid email</td>
+<td>Show error message</td>
+</tr>
+<tr>
+<td>TC-003</td>
+<td>Login with wrong password</td>
+<td>Show error message</td>
+</tr>
+<tr>
+<td>TC-004</td>
+<td>Register with valid data</td>
+<td>Create account, redirect to dashboard</td>
+</tr>
+<tr>
+<td>TC-005</td>
+<td>Register with existing email</td>
+<td>Show duplicate error</td>
+</tr>
+<tr>
+<td>TC-006</td>
+<td>Logout</td>
+<td>Clear session, redirect to login</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transaction-test-cases">Transaction Test Cases</h4>
+<table>
+<thead>
+<tr>
+<th>TC ID</th>
+<th>Test Case</th>
+<th>Expected Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC-010</td>
+<td>Add income entry</td>
+<td>Entry appears in list, balance updates</td>
+</tr>
+<tr>
+<td>TC-011</td>
+<td>Add expense entry</td>
+<td>Entry appears in list, balance updates</td>
+</tr>
+<tr>
+<td>TC-012</td>
+<td>Edit transaction</td>
+<td>Changes reflected immediately</td>
+</tr>
+<tr>
+<td>TC-013</td>
+<td>Delete transaction</td>
+<td>Entry removed, balance updates</td>
+</tr>
+<tr>
+<td>TC-014</td>
+<td>Filter by category</td>
+<td>Only matching entries shown</td>
+</tr>
+</tbody>
+</table>
+<h4 id="budget-test-cases">Budget Test Cases</h4>
+<table>
+<thead>
+<tr>
+<th>TC ID</th>
+<th>Test Case</th>
+<th>Expected Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC-020</td>
+<td>Create budget</td>
+<td>Budget appears with 0% progress</td>
+</tr>
+<tr>
+<td>TC-021</td>
+<td>Add expense in category</td>
+<td>Progress bar updates</td>
+</tr>
+<tr>
+<td>TC-022</td>
+<td>Exceed budget 70%</td>
+<td>Warning indicator shown</td>
+</tr>
+<tr>
+<td>TC-023</td>
+<td>Exceed budget 100%</td>
+<td>Over budget indicator shown</td>
+</tr>
+</tbody>
+</table>
+<h3 id="153-browser-compatibility-testing">15.3 Browser Compatibility Testing</h3>
+<table>
+<thead>
+<tr>
+<th>Browser</th>
+<th>Version</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chrome</td>
+<td>120+</td>
+<td>✅ Tested</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>121+</td>
+<td>✅ Tested</td>
+</tr>
+<tr>
+<td>Edge</td>
+<td>120+</td>
+<td>✅ Tested</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>17+</td>
+<td>✅ Tested</td>
+</tr>
+</tbody>
+</table>
+<h3 id="154-responsive-testing">15.4 Responsive Testing</h3>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>Screen Size</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mobile (Small)</td>
+<td>320px - 375px</td>
+<td>✅ Tested</td>
+</tr>
+<tr>
+<td>Mobile (Large)</td>
+<td>376px - 480px</td>
+<td>✅ Tested</td>
+</tr>
+<tr>
+<td>Tablet</td>
+<td>481px - 768px</td>
+<td>✅ Tested</td>
+</tr>
+<tr>
+<td>Laptop</td>
+<td>769px - 1024px</td>
+<td>✅ Tested</td>
+</tr>
+<tr>
+<td>Desktop</td>
+<td>1025px+</td>
+<td>✅ Tested</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="16-future-enhancements">16. Future Enhancements</h2>
+<h3 id="161-short-term-enhancements">16.1 Short-Term Enhancements</h3>
+<table>
+<thead>
+<tr>
+<th>Enhancement</th>
+<th>Description</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Sync</td>
+<td>Cloud backup using Firebase</td>
+<td>High</td>
+</tr>
+<tr>
+<td>PWA Support</td>
+<td>Installable progressive web app</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td>Push notifications for bill reminders</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>Custom icon and color for categories</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Recurring Transactions</td>
+<td>Auto-create recurring entries</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="162-long-term-enhancements">16.2 Long-Term Enhancements</h3>
+<table>
+<thead>
+<tr>
+<th>Enhancement</th>
+<th>Description</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backend API</td>
+<td>Node.js/Express backend server</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>MongoDB or PostgreSQL integration</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Multi-currency</td>
+<td>Support for multiple currencies</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Bank Integration</td>
+<td>Read-only bank account linking</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>AI Insights</td>
+<td>ML-based spending predictions</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Social Features</td>
+<td>Family finance sharing</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Mobile Apps</td>
+<td>React Native iOS/Android apps</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="17-conclusion">17. Conclusion</h2>
+<p>The Personal Finance Management &amp; Investment Tracker System is a comprehensive web application that addresses the growing need for personal financial management tools. This document has outlined the complete requirements, architecture, and implementation details for the system.</p>
+<h3 id="key-achievements">Key Achievements</h3>
+<ol>
+<li>
+<p><strong>Complete Feature Set:</strong> All planned features including income/expense tracking, budgeting, goals, investments, and bills have been implemented.</p>
+</li>
+<li>
+<p><strong>Modern Technology Stack:</strong> Built using React 18, Tailwind CSS, and modern JavaScript practices.</p>
+</li>
+<li>
+<p><strong>User-Friendly Interface:</strong> Clean, responsive design with dark/light mode support.</p>
+</li>
+<li>
+<p><strong>Data Persistence:</strong> Reliable localStorage-based data storage with export/import functionality.</p>
+</li>
+<li>
+<p><strong>Extensible Architecture:</strong> Modular design allows for easy future enhancements.</p>
+</li>
+</ol>
+<h3 id="learning-outcomes">Learning Outcomes</h3>
+<p>Through this project, the following skills were developed:</p>
+<ul>
+<li>React component architecture and hooks</li>
+<li>State management using Context API</li>
+<li>Responsive web design with Tailwind CSS</li>
+<li>Data visualization with Recharts</li>
+<li>Client-side data persistence</li>
+<li>Form validation and error handling</li>
+<li>Project documentation</li>
+</ul>
+<hr>
+<h2 id="18-references">18. References</h2>
+<ol>
+<li><strong>React Documentation</strong> - https://react.dev/</li>
+<li><strong>Tailwind CSS Documentation</strong> - https://tailwindcss.com/docs</li>
+<li><strong>React Router Documentation</strong> - https://reactrouter.com/</li>
+<li><strong>Recharts Documentation</strong> - https://recharts.org/</li>
+<li><strong>Lucide Icons</strong> - https://lucide.dev/</li>
+<li><strong>Vite Documentation</strong> - https://vitejs.dev/</li>
+<li><strong>MDN Web Docs (localStorage)</strong> - https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage</li>
+<li><strong>Web Accessibility Guidelines (WCAG)</strong> - https://www.w3.org/WAI/standards-guidelines/wcag/</li>
+</ol>
+<hr>
+<h2 id="appendix-a-project-file-structure">Appendix A: Project File Structure</h2>
+<pre class="hljs"><code><div>finance-tracker/
+├── index.html
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+├── postcss.config.js
+├── .gitignore
+├── README.md
+│
+├── docs/
+│   └── Requirement_Specification_Document.md
+│
+└── src/
+    ├── main.jsx
+    ├── App.jsx
+    ├── index.css
+    │
+    ├── components/
+    │   ├── Charts/
+    │   │   ├── ExpensePieChart.jsx
+    │   │   ├── IncomeExpenseChart.jsx
+    │   │   ├── TrendLineChart.jsx
+    │   │   └── PortfolioChart.jsx
+    │   │
+    │   ├── Common/
+    │   │   ├── Button.jsx
+    │   │   ├── Card.jsx
+    │   │   ├── EmptyState.jsx
+    │   │   ├── Input.jsx
+    │   │   ├── LoadingSpinner.jsx
+    │   │   ├── Modal.jsx
+    │   │   ├── ProgressBar.jsx
+    │   │   ├── Select.jsx
+    │   │   └── Toast.jsx
+    │   │
+    │   ├── Dashboard/
+    │   │   ├── BudgetOverview.jsx
+    │   │   ├── QuickActions.jsx
+    │   │   ├── RecentTransactions.jsx
+    │   │   └── SummaryCard.jsx
+    │   │
+    │   └── Layout/
+    │       ├── Layout.jsx
+    │       ├── Navbar.jsx
+    │       ├── ProtectedRoute.jsx
+    │       └── Sidebar.jsx
+    │
+    ├── context/
+    │   ├── AuthContext.jsx
+    │   ├── FinanceContext.jsx
+    │   ├── NotificationContext.jsx
+    │   └── ThemeContext.jsx
+    │
+    ├── data/
+    │   └── sampleData.js
+    │
+    ├── pages/
+    │   ├── Bills.jsx
+    │   ├── Budgets.jsx
+    │   ├── Calculators.jsx
+    │   ├── Categories.jsx
+    │   ├── Dashboard.jsx
+    │   ├── Expenses.jsx
+    │   ├── Goals.jsx
+    │   ├── Help.jsx
+    │   ├── Income.jsx
+    │   ├── Investments.jsx
+    │   ├── Login.jsx
+    │   ├── Profile.jsx
+    │   ├── Register.jsx
+    │   ├── Reports.jsx
+    │   ├── Settings.jsx
+    │   └── Transactions.jsx
+    │
+    └── utils/
+        ├── calculators.js
+        ├── helpers.js
+        ├── localStorage.js
+        └── validators.js
+</div></code></pre>
+<hr>
+<h2 id="appendix-b-sample-screenshots">Appendix B: Sample Screenshots</h2>
+<p>The application includes the following screens (screenshots to be attached):</p>
+<ol>
+<li>Login Page</li>
+<li>Dashboard</li>
+<li>Income Management</li>
+<li>Expense Management</li>
+<li>Budget Tracking</li>
+<li>Savings Goals</li>
+<li>Investment Portfolio</li>
+<li>Bill Reminders</li>
+<li>Reports &amp; Analytics</li>
+<li>Financial Calculators</li>
+<li>Settings Page</li>
+</ol>
+<hr>
+<p><strong>Document End</strong></p>
+<p><em>Prepared for B.Sc. (Computer Science) Internship 2025</em>
+<em>Submission Date: January 8, 2026</em></p>
+
+</body>
+</html>
