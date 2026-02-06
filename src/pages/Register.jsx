@@ -75,7 +75,7 @@ const Register = () => {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
                         <Input
                             label="Full Name"
                             name="name"
@@ -84,6 +84,7 @@ const Register = () => {
                             value={formData.name}
                             onChange={handleChange}
                             error={errors.name}
+                            autoComplete="off"
                         />
 
                         <Input
@@ -95,6 +96,7 @@ const Register = () => {
                             value={formData.email}
                             onChange={handleChange}
                             error={errors.email}
+                            autoComplete="off"
                         />
 
                         <Input
@@ -105,6 +107,7 @@ const Register = () => {
                             icon={Phone}
                             value={formData.phone}
                             onChange={handleChange}
+                            autoComplete="off"
                         />
 
                         <div className="relative">
@@ -117,6 +120,7 @@ const Register = () => {
                                 value={formData.password}
                                 onChange={handleChange}
                                 error={errors.password}
+                                autoComplete="new-password"
                             />
                             <button
                                 type="button"
@@ -136,6 +140,7 @@ const Register = () => {
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             error={errors.confirmPassword}
+                            autoComplete="new-password"
                         />
 
                         <Button type="submit" fullWidth loading={loading}>

@@ -73,7 +73,7 @@ const Login = () => {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
                         <Input
                             label="Email"
                             name="email"
@@ -83,6 +83,7 @@ const Login = () => {
                             value={formData.email}
                             onChange={handleChange}
                             error={errors.email}
+                            autoComplete="off"
                         />
 
                         <div className="relative">
@@ -95,6 +96,7 @@ const Login = () => {
                                 value={formData.password}
                                 onChange={handleChange}
                                 error={errors.password}
+                                autoComplete="current-password"
                             />
                             <button
                                 type="button"
