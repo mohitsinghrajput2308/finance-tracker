@@ -6,6 +6,7 @@ import Layout from './components/Layout/Layout';
 import ProtectedRoute from './components/Layout/ProtectedRoute';
 
 // Pages
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -40,6 +41,7 @@ function App() {
     return (
         <Routes>
             {/* Public Routes */}
+            <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
@@ -50,7 +52,6 @@ function App() {
                     <ProtectedRoute>
                         <Layout>
                             <Routes>
-                                <Route path="/" element={<Navigate to="/dashboard" replace />} />
                                 <Route path="/dashboard" element={<Dashboard />} />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/income" element={<Income />} />
